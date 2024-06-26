@@ -1,0 +1,81 @@
+
+     // import './Class2.css'
+    // function Usestate(){
+    //     const value=20;
+    //     let msg ="age is greater than 20";
+    //     if (condition>20){
+    //         msg ="age is less than 20"
+    // }
+    // else{
+    //     msg ="else condition is execute"
+    // }
+    //     return(
+    //         <>
+    //         {condition>20} ?<p>if is executed</p> :<p>else is executed</p>
+    //         </>
+    //     )
+    // }
+    // export default Usestate;
+==============================================================
+import { useState } from "react";
+
+function Usestate(){
+        const [value, setValue] = useState(0);
+const[msg , setMsg] = useState("");
+        function changeEvent(e) {
+            setValue(e.target.value);
+        }
+        function handleClick(){
+if (value<18) {
+    setMsg("child")
+    } 
+ else if(value>18 && value<40 ) {
+    setMsg("adult")
+ }
+    else {
+        setMsg("aged")
+        }
+    }
+        return(
+
+            
+<>
+
+<input type="number" placeholder="Enter your age" onChange={changeEvent}/>
+<p>{msg}</p>
+<button onClick={handleClick}>submit</button>
+</>
+
+        )
+    }
+    export default Usestate;
+=====================================================
+import { useState } from "react";
+
+function Usestate(){
+        const [value, setValue] = useState(0);
+const[msg , setMsg] = useState("");
+        function changeEvent(e) {
+            setValue(e.target.value);
+        }
+        function handleClick(){
+if (value == "") {
+    setMsg("Please fill the data")
+    } 
+    else {
+        setMsg("")
+        }
+    }
+        return(
+
+
+<>
+
+<input type="number" placeholder="Enter your age" onChange={changeEvent}/>
+<p>{msg}</p>
+<button onClick={handleClick}>submit</button>
+</>
+
+        )
+    }
+    export default Usestate;

@@ -1,0 +1,123 @@
+import { useEffect, useState } from 'react';
+
+const Class12 = () => {
+
+    const [data, setData] = useState(values);
+    const [name, setName] = useState("");
+    const [designation, setDesignation] = useState("");
+    const [role, setRole] = useState("");
+    const [empId, setEmpId] = useState("");
+    const [editIndex, setEditIndex] = useState(-1);
+
+    useEffect(() => {
+     
+        console.log(data);
+        
+    }, [data]);
+
+
+
+    const handleSubmit = () => {
+        if (editIndex === -1) {
+            setData([...data, { name, designation, role, empId }]);
+        } else {
+            const updatedData = [...data];
+            updatedData[editIndex] = { name, designation, role, empId };
+            setData(updatedData);
+            setEditIndex();
+        }
+        setName("");
+        setDesignation("");
+        setRole("");
+        setEmpId("");
+    }
+
+    const handleDelete = (index) => {
+        setData(data.filter((_, ind) => ind !== index));
+    }
+
+    const handleEdit = (index) => {
+        setEditIndex(index);
+        setName(data[index].name);
+        setDesignation(data[index].designation);
+        setRole(data[index].role);
+        setEmpId(data[index].empId);
+    }
+
+    return (
+        <>
+            <h4>UseEffect</h4>
+            <input type='text' placeholder="Enter your Name" onChange={(e) => setName(e.target.value)} value={name} />
+            <input type='text' placeholder="Enter your Designation" onChange={(e) => setDesignation(e.target.value)} value={designation} />
+            <input type='text' placeholder="Enter your Role" onChange={(e) => setRole(e.target.value)} value={role} />
+            <input type='text' placeholder="Enter your EmpId" onChange={(e) => setEmpId(e.target.value)} value={empId} />
+            <button onClick={handleSubmit}>{editIndex === -1 ? "Submit" : "Update"}</button>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Role</th>
+                        <th>EmpId</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((e, index) => (
+                        <tr key={index}>
+                            <td>{e.name}</td>
+                            <td>{e.designation}</td>
+                            <td>{e.role}</td>
+                            <td>{e.empId}</td>
+                            <td>
+                                <button onClick={() => handleEdit(index)}>Edit</button>
+                                <button onClick={() => handleDelete(index)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </>
+    );
+}
+
+const values = [
+    {
+        name: "nav",
+        designation: 'SE',
+        role: 'Emp',
+        empId: 234
+    },
+    {
+        name: "sai",
+        designation: 'SE',
+        role: 'Emp',
+        empId: 235
+    },
+    {
+        name: "nav",
+        designation: 'SE',
+        role: 'Emp',
+        empId: 236
+    },
+    {
+        name: "nav",
+        designation: 'Tester',
+        role: 'Emp',
+        empId: 237
+    },
+    {
+        name: "sam",
+        designation: 'SE',
+        role: 'Emp',
+        empId: 238
+    },
+    {
+        name: "ram",
+        designation: 'TL',
+        role: 'Emp',
+        empId: 239
+    }
+];
+export default Class12;

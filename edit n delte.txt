@@ -1,0 +1,279 @@
+
+===sai=====
+import { useState } from "react";
+
+function CardsTable() {
+    const [data, setData] = useState([]); 
+    const [image, setImage] = useState(""); 
+    const [level, setLevel] = useState(""); 
+    const [title, setTitle] = useState(""); 
+    const [desc, setDesc] = useState(""); 
+    const [editIndex, setEditIndex] = useState(-1); 
+
+    const imageChange = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]));
+    };
+
+    const levelChange = (e) => {
+        setLevel(e.target.value);
+    };
+
+    const titleChange = (e) => {
+        setTitle(e.target.value);
+    };
+
+    const descChange = (e) => {
+        setDesc(e.target.value);
+    };
+
+    const handleInsert = () => {
+        setData([...data, { image, level, title, desc }]);
+        setImage("");
+        setLevel("");
+        setTitle("");
+        setDesc("");
+    };
+
+    const handleDelete = (index) => {
+        const updatedData = [...data];
+        updatedData.splice(index, 1); 
+        setData(updatedData);
+    };
+
+    const handleEdit = (index) => {
+        setEditIndex(index);
+    };
+
+    const handleUpdate = (index) => {
+        const updatedData = [...data]; 
+        updatedData[index] = { image, level, title, desc }; 
+        setData(updatedData);
+        setEditIndex(-1);
+    };
+
+    return (
+        <div>
+            <input type="file" onChange={imageChange} />
+            <input type="text" value={level} onChange={levelChange} placeholder="Level" />
+            <input type="text" value={title} onChange={titleChange} placeholder="Title" />
+            <textarea value={desc} onChange={descChange} placeholder="Description"></textarea>
+            <button onClick={handleInsert} disabled={!image || !level || !title || !desc}>Insert</button>
+            <br /><br />
+            <div>
+                <table border={1}>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Level</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item, index) => (  
+                            editIndex === index ? (
+                                <tr key={index}>
+                                    <td>{item.image}</td>
+                                    <td><input type="text" value={level} onChange={levelChange} /></td>
+                                    <td><input type="text" value={title} onChange={titleChange} /></td>
+                                    <td><textarea value={desc} onChange={descChange}></textarea></td>
+                                    <td>
+                                        <button onClick={() => handleUpdate(index)}>Update</button>
+                                    </td>
+                                </tr>
+                            ) : (
+                                <tr key={index}>
+                                    <td><img src={item.image} alt="Loading" width="100px" /></td>
+                                    <td>{item.level}</td>
+                                    <td>{item.title}</td>
+                                    <td>{item.desc}</td>
+                                    <td>  <button onClick={() => handleDelete(index)}>Delete</button> </td>
+                                    <td>   <button onClick={() => handleEdit(index)}>Edit</button>      </td>
+                               
+                              
+                                     
+                              
+                                </tr>
+                            )
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+export default CardsTable;
+
+
+
+
+
+
+
+
+
+
+
+
+
+=====================tried================
+// import { useState } from "react";
+
+// function Task9() {
+//     const [name, setName] = useState("");
+//     const [place, setPlace] = useState("");
+//     const [data, setData] = useState([]);
+//     const [editIndex, setEditIndex] = useState(-1);
+//     function Name(e) {
+//         setName(e.target.value);
+//     }
+//     function Place(e) {
+//         setPlace(e.target.value);
+//     }
+//     function handleClick() {
+//         setData([...data, { name, place }])
+//         setName("");
+//         setPlace("");
+//     }
+//     function handleDelete(index) {
+//         const newData = [...data];
+//         newData.splice(index, 1)
+//         setData(newData);
+//     }
+//     function handleEdit(index) {
+//         setEditIndex(index)
+//     }
+//     function handleUpdate(index) {
+//         const updatedData = [...data];
+//         updatedData[index] = { name, place };
+//         setData(updatedData);
+//         setEditIndex(-1);
+//     }
+//     return (
+//         <>
+//             <input type="text" placeholder="Enter your Name" onChange={Name} value={name} />
+//             <input type="text" placeholder="Enter your Place" onChange={Place} value={place} />
+//             <button onClick={handleClick}>Submit</button>
+//             <table >
+//                 <tr>
+//                     <th>Name</th>
+//                     <th>Place</th>
+//                     <th>Actions</th>
+//                 </tr>
+//                 {data.map((item,index) => (
+//                     editIndex === index ? (
+//                         <tr>
+//                             <td><input type="text" onChange={Name} /></td>
+//                             <td><input type="text" onChange={Place} /></td>
+//                             <td><button onClick={handleUpdate}>Update</button></td>
+//                         </tr>
+//                     ):
+//                     (
+
+                        
+
+//                             <tr>
+//                                 <td>{item.name}</td>
+//                                 <td>{item.place}</td>
+
+//                                 <td> <button onClick={handleDelete(index)}>Delete</button></td>
+
+//                                 <td> <button onClick={handleEdit(index)}>Edit</button></td>
+
+//                             </tr>
+//                         )
+//                 )
+//             )}
+
+//             </table>
+
+//         </>
+//     );
+// }
+
+// export default Task9;
+
+
+
+
+===============================my chat========
+import { useState } from "react";
+
+function Task9() {
+    const [name, setName] = useState("");
+    const [place, setPlace] = useState("");
+    const [data, setData] = useState([]);
+    const [editIndex, setEditIndex] = useState(-1);
+
+    function Name(e) {
+        setName(e.target.value);
+    }
+
+    function Place(e) {
+        setPlace(e.target.value);
+    }
+
+    function handleClick() {
+        setData([...data, { name, place }]);
+        setName("");
+        setPlace("");
+    }
+
+    function handleDelete(index) {
+        const newData = [...data];
+        newData.splice(index, 1);
+        setData(newData);
+    }
+
+    function handleEdit(index) {
+        setEditIndex(index);
+        setName(data[index].name);
+        setPlace(data[index].place);
+    }
+
+    function handleUpdate() {
+        const updatedData = [...data];
+        updatedData[editIndex] = { name, place };
+        setData(updatedData);
+        setEditIndex(-1);
+        setName("");
+        setPlace("");
+    }
+
+    return (
+        <>
+            <input type="text" placeholder="Enter your Name" onChange={Name} value={name} />
+            <input type="text" placeholder="Enter your Place" onChange={Place} value={place} />
+            <button onClick={handleClick}>Submit</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Place</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((item, index) => (
+                        editIndex === index ? (
+                            <tr key={index}>
+                                <td><button onClick={handleUpdate}>Update</button></td>
+                            </tr>
+                        ) : (
+                            <tr key={index}>
+                                <td>{item.name}</td>
+                                <td>{item.place}</td>
+                                <td><button onClick={() => handleDelete(index)}>Delete</button></td>
+                                <td><button onClick={() => handleEdit(index)}>Edit</button></td>
+                            </tr>
+                        )
+                    ))}
+                </tbody>
+            </table>
+        </>
+    );
+}
+
+export default Task9;

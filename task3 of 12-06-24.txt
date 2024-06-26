@@ -1,0 +1,62 @@
+
+import { useState } from 'react';
+import './Task4.css';
+
+function Task4() {
+    const [first, setFirst] = useState("");
+    const [last, setLast] = useState("");
+    const [designation, setDesignation] = useState("");
+    const [value, setValue] = useState([]);
+
+    function handleFirstChange(e) {
+        setFirst(e.target.value);
+    }
+
+    function handleLastChange(e) {
+        setLast(e.target.value);
+    }
+
+    function handleDesignationChange(e) {
+        setDesignation(e.target.value);
+    }
+
+    function handleClick() {
+        setValue([...value, { first, last, designation }]);
+        setFirst("");
+        setLast("");
+        setDesignation("");
+    }
+
+    const enabled = first && last && designation;
+
+    return (
+        <>
+            <div>
+                <input type="text" placeholder="Enter text 1" value={first} onChange={handleFirstChange} />
+                <input type="text" placeholder="Enter text 2" value={last} onChange={handleLastChange} />
+                <input type="text" placeholder="Enter text 3" value={designation} onChange={handleDesignationChange} />
+                <button onClick={handleClick} disabled={!enabled}>Add</button>
+            </div>
+
+            <table >
+           
+                    <tr>
+                        <th>First</th>
+                        <th>Last</th>
+                        <th>Designation</th>
+                    </tr>
+              
+                    {value.map((e) => (
+                        <tr key={e}>
+                            <td>{e.first}</td>
+                            <td>{e.last}</td>
+                            <td>{e.designation}</td>
+                        </tr>
+                    ))}
+               
+            </table>
+        </>
+    );
+}
+
+export default Task4;

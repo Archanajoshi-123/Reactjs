@@ -1,0 +1,77 @@
+parent:
+========
+
+import { useState } from "react";
+import Child1 from "./Child1";
+import './Task6.css';
+
+function Task6() {
+    const [data, setData] = useState([]);
+
+    const handleGetData = (e) => {
+        setData((value) => [...value, e]);
+    };
+
+    return (
+        <div>
+            <Child1 sendBack={handleGetData} />
+
+            
+                {data.map((e) => (
+                    <div className="card" >
+                        <p>Name:{e.name}</p>
+                        <p>Place: {e.place}</p>
+                        <p>Gender: {e.gender}</p>
+                    </div>
+                ))}
+            </div>
+       
+    );
+}
+
+export default Task6;
+
+
+
+
+child:
+=====
+
+import { useState } from "react";
+
+const Child1 = ({ sendBack }) => {
+    const [name, setName] = useState("");
+    const [place, setPlace] = useState("");
+    const [gender, setGender] = useState("");
+
+    function Name(e){
+        setName(e.target.value)
+    }
+
+    function Place(e){
+        setPlace(e.target.value)
+    }
+
+    function Gender(e){
+        setGender(e.target.value)
+    }
+
+
+    const handleClick = () => {
+        sendBack({ name, place, gender });
+        setName("");
+        setPlace("");
+        setGender("");
+    };
+
+    return (
+        <div >
+            <input type="text"placeholder="Enter name" value={name} onChange={Name}/>
+            <input type="text"placeholder="Enter place"value={place} onChange={Place}/>
+            <input type="text"placeholder="Enter gender" value={gender} onChange={Gender}/>
+            <button onClick={handleClick}>Submit</button>
+        </div>
+    );
+};
+
+export default Child1;

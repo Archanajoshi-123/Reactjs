@@ -1,0 +1,64 @@
+import { useState } from "react";
+
+const C5=({sendBack})=>{
+ const[name,setName]=useState("");
+ const[place,setPlace]=useState("");
+ const handleClick=()=>{
+    sendBack({name,place});
+    setName("");
+    setPlace("");
+ }
+
+function Name(e){
+    setName(e.target.value);
+}
+function Place(e){
+    setPlace(e.target.value);
+}
+    return(
+        <>
+        <input type="text" placeholder="Enter your Name"  value={name} onChange={Name}/>
+        <input type="text" placeholder="Enter your Place" value={place} onChange={Place}/>
+        <button onClick={handleClick}>Submit</button>
+
+        </>
+    )
+}
+export default C5;
+-=======================
+import { useState } from "react";
+import C5 from "./C5";
+function P5(props){
+ const[value,setValue]=useState([]);
+
+ function handleClick(data){
+    setValue((prevData)=>[...prevData,data])
+ }
+    return(
+        <>
+        <C5 sendBack={handleClick} />
+        <table>
+            <tr>
+            <th>Name</th>
+            <th>Place</th>
+            </tr>
+          {value.map((e)=>
+        (
+            <>
+            <tr>
+            <td>{e.name}</td>
+            <td>{e.place}</td>
+            </tr>
+            </>
+        ))}
+
+
+
+
+
+
+        </table>
+        </>
+    )
+}
+export default P5;

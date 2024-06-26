@@ -1,0 +1,83 @@
+import { useState } from "react";
+
+function Task3(){
+const[name,setName]= useState("");
+const[age,setAge]= useState("");
+const[place,setPlace]= useState("");
+const[gender,setGender]= useState("");
+const[msg,setMsg] =useState("");
+const[color1]=useState("red");
+const[color2]=useState("blue");
+
+// const[name1,setName1]= useState("");
+// const[age1,setAge1]= useState("");
+// const[place1,setPlace1]= useState("");
+// const[gender1,setGender1]= useState("");
+
+function Name(e){
+    setName(e.target.value)
+ 
+}
+function Age(e){
+    setAge(e.target.value)
+  
+}
+function Place(e){
+    setPlace(e.target.value)
+   
+}
+function Gender(e){
+    setGender(e.target.value)
+ 
+}
+ 
+
+function handleClick(){
+    if ( name === ""){
+     setName("Please enter your name") 
+}  
+    if (age === ""){
+    setAge("Please enter your age")
+
+}
+    if (place === ""){
+    setPlace("Please enter your place")
+
+}
+    if (gender === ""){
+        setGender("Please enter your gender")
+    }
+    if ( name === "" || age === "" || place === "" || gender === ""){
+        setMsg("")
+    }
+    else{
+        setMsg("Submitted")
+
+    }
+        
+     
+}
+
+    return(
+        <>
+        <input type="text" placeholder="Enter your name" onChange={Name}/>
+        <p  style={{color:"color1"}}>{name}</p>
+        <input type="text" placeholder="Enter your age" onChange={Age}/>
+        <p  style={{color:"color2"}}>{age}</p>
+        <input type="text" placeholder="Enter your place" onChange={Place}/> 
+        <p  style={{color:"color1"}}>{place}</p>
+        <input type="text" placeholder="Enter your gender" onChange={Gender}/>
+        <p  style={{color:"color2"}}>{gender}</p>
+        <button onClick={handleClick}>Submit</button>
+        {msg}
+<ul>
+      <li style={{color:"color1"}}></li>
+      <li style={{color:"color2"}}> </li>
+      <li style={{color:"color1"}}> </li>
+      <li style={{color:"color2"}}> </li>
+
+</ul>   
+        </>
+    )
+}
+export default Task3;

@@ -1,0 +1,42 @@
+
+import { useState } from "react";
+import "./Class1task2.css";
+
+function UseState() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [color, setColor] = useState("");
+    const [colour, setColour] = useState("");
+
+    function Name(e) {
+        setName(e.target.value);
+    }
+
+    function Email(e) {
+        setEmail(e.target.value);
+    }
+
+    function Colour(e) {
+        setColor(e.target.value);
+    }
+
+    function Submit() {
+        setColour(color);
+    }
+
+    return (
+        <div>
+            
+                <input type="text" placeholder="Enter your name" onChange={Name} style={{ color:colour}}/>
+                <input  type="email" placeholder="Enter your Email"onChange={Email} style={{ color: colour }} />       
+                <input  type="text"      placeholder="Color"        onChange={Colour}  />
+                <button onClick={handleSubmit}>Submit</button>     
+            <div style={{color:colour}}>
+                {name}<br></br>
+                {email}
+            </div>
+        </div>
+    );
+}
+
+export default UseState;

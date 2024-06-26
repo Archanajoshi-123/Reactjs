@@ -1,0 +1,144 @@
+import { useState } from "react";
+
+export function Raju() {
+    // State variables
+    const [sname, setSname] = useState("");
+    const [place, setPlace] = useState("");
+    const [thing, setThing] = useState("");
+    const [age, setAge] = useState("");
+    const [value, setValue] = useState([]);
+    const [count, setCount] = useState(1);
+    const [img, setImg] = useState(null);
+    const [editIndex, setEditIndex] = useState(null);
+
+    // Handlers for input changes
+    function name(a) {
+        setSname(a.target.value);
+    }
+    function pla(b) {
+        setPlace(b.target.value);
+    }
+    function thi(b) {
+        setThing(b.target.value);
+    }
+    function ag(b) {
+        setAge(b.target.value);
+    }
+
+    // Handle image file change
+    function imgchange(e) {
+        if (e.target.files[0]) {
+            setImg(URL.createObjectURL(e.target.files[0]));
+        }
+    }
+
+    // Delete an entry by index
+    function Delete(id) {
+        setValue(value.filter((item, index) => index !== id));
+    }
+
+    // Add new entry or update existing one
+    function click(e) {
+        let a = { sname, place, thing, age, img };
+        if (editIndex === null) {
+            setValue(value => [...value, a]);
+        } else {
+            const updatedValue = value.map((item, index) =>
+                index === editIndex ? a : item
+            );
+            setValue(updatedValue);
+            setEditIndex(null);
+        }
+        setCount(count + 1);
+        setSname("");
+        setPlace("");
+        setThing("");
+        setAge("");
+        setImg(null);
+    }
+
+    // Start editing an entry
+    function startEdit(index) {
+        const item = value[index];
+        setSname(item.sname);
+        setPlace(item.place);
+        setThing(item.thing);
+        setAge(item.age);
+        setImg(item.img);
+        setEditIndex(index);
+    }
+
+    // Cancel editing
+    function cancelEdit() {
+        setSname("");
+        setPlace("");
+        setThing("");
+        setAge("");
+        setImg(null);
+        setEditIndex(null);
+    }
+
+    // Update an entry
+    function update() {
+        const updatedValue = { sname, place, thing, age, img };
+        const newValue = value.map((item, index) =>
+            index === editIndex ? updatedValue : item
+        );
+        setValue(newValue);
+        cancelEdit();
+    }
+
+    return (
+        <>
+            <div>
+                <input type="file" onChange={imgchange} />
+                <input type="text" placeholder="name" onChange={name} value={sname} />
+                <input type="text" placeholder="place" onChange={pla} value={place} />
+                <input type="text" placeholder="thing" onChange={thi} value={thing} />
+                <input type="text" placeholder="age" onChange={ag} value={age} />
+                <button onClick={click} disabled={!sname || !place || !thing || !age || !img}>
+                    {editIndex === null ? "Submit" : "Update"}
+                </button>
+            </div>
+
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Place</td>
+                            <td>Thing</td>
+                            <td>Age</td>
+                            <td>Image</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {value.map((e, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{e.sname}</td>
+                                <td>{e.place}</td>
+                                <td>{e.thing}</td>
+                                <td>{e.age}</td>
+                                <td><img src={e.img} width="50px" height="50px" /></td>
+                                <td><button onClick={() => Delete(index)}>Delete</button></td>
+                                <td>
+                                    {editIndex === index ? (
+                                        <>
+                                            <button onClick={update}>Update</button>
+                                            <button onClick={cancelEdit}>Cancel</button>
+                                        </>
+                                    ) : (
+                                        <button onClick={() => startEdit(index)}>Edit</button>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
+    );
+}

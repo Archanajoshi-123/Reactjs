@@ -1,0 +1,178 @@
+
+
+
+// import { useState } from 'react';
+// import './Task4.css'
+// function Task4(){
+// const[h1,setH1]=useState("");
+// const[h2,setH2]=useState("");
+// const[h3,setH3]=useState("");
+// // const[h4,setH4]=useState("");
+// // const[h5,setH5]=useState("");
+// // const[h6,setH6]=useState("");
+// // const[h7,setH7]=useState("");
+// // const[h8,setH8]=useState("");
+// // const[h9,setH9]=useState("");
+
+
+
+// const[value,setValue]=useState([])
+
+
+// function H1(e){
+//     setH1(e.target.value)
+// }
+// function H2(e){
+//     setH2(e.target.value)
+// }
+// function H3(e){
+//     setH3(e.target.value)
+// }
+// // function H4(e){
+// //     setH4(e.target.value)
+// // }
+// // function H5(e){
+// //     setH5(e.target.value)
+// // }
+// // function H6(e){
+// //     setH6(e.target.value)
+// // }
+// // function H7(e){
+// //     setH7(e.target.value)
+// // }
+// // function H8(e){
+// //     setH8(e.target.value)
+// // }
+// // function H9(e){
+// //     setH9(e.target.value)
+// // }
+
+// function handleClick(){
+// const newValue=(h1,h2,h3);
+// setValue([...value,{h1,h2,h3}])
+// setH1("");
+// setH2("");
+// setH3("");
+
+
+// }
+  
+// return(
+// <>
+// <div>
+// <input type ="text" placeholder=''onChange={H1}/>
+// <input type ="text" placeholder=''onChange={H2}/> 
+// <input type ="text" placeholder=''onChange={H3}/>
+
+
+// </div>
+
+
+// <div className='flex'>
+// <div className='card'>
+//     <img  className="img"      src="https://instedia.com/images/courses/html-image.webp"/>
+//     <div>{h1}</div>
+//     <div>{h2}</div>
+//     <div>{h3}</div>
+// </div>
+
+
+// <div className='card' style={{marginLeft:"20px"}}>
+//     <img  className="img"      src="https://instedia.com/images/courses/html-image.webp"/>
+//     <div>{h4}</div>
+//     <div>{h5}</div>
+//     <div>{h6}</div>
+// </div>
+
+// <div className='card' style={{marginLeft:"20px"}}>
+//     <img  className="img"      src="https://instedia.com/images/courses/html-image.webp"/>
+//     <div>{h7}</div>
+//     <div>{h8}</div>
+//     <div>{h9}</div>
+// </div>
+// </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+// </>   
+
+
+
+
+// )  
+    
+// }
+// export default Task4; 
+
+
+import { useState } from 'react';
+import './Task4.css'
+
+function Task4() {
+
+    const [h1, setH1] = useState("");
+    const [h2, setH2] = useState("");
+    const [h3, setH3] = useState("");
+    const [cards, setCards] = useState([]);
+    const [image,setImage]=useState("")
+
+    const image2=(e)=>{
+        setImage(URL.createObjectURL(e.target.files[0]));
+    }
+
+    function handleChangeH1(e) {
+        setH1(e.target.value);
+    }
+
+    function handleChangeH2(e) {
+        setH2(e.target.value);
+    }
+
+    function handleChangeH3(e) {
+        setH3(e.target.value);
+    }
+
+    function handleClick() {
+        setCards([...cards, {image, h1, h2, h3 }]);
+        setImage("");
+        setH1("");
+        setH2("");
+        setH3("");
+    }
+
+    return (
+        <>
+            <div>
+                <input type="file" onChange={image2}/>
+                <input type="text" placeholder="Enter text 1" value={h1} onChange={handleChangeH1} />
+                <input type="text" placeholder="Enter text 2" value={h2} onChange={handleChangeH2} />
+                <input type="text" placeholder="Enter text 3" value={h3} onChange={handleChangeH3} />
+                <button onClick={handleClick}>Add to Card</button>
+            </div>
+
+            <div className='flex'>
+                {cards.map((e) => (
+                    <div className='card'  >
+                        {/* <img className="img" src="https://instedia.com/images/courses/html-image.webp"  /> */}
+                        <img src={e.image} alt="loading" width="350px"/>
+                        <p>{e.h1}</p>
+                        <p>{e.h2}</p>
+                        <p>{e.h3}</p>
+                    </div>
+                ))}
+            </div>
+        </>
+    )
+}
+
+export default Task4;
